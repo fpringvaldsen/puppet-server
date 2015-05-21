@@ -266,16 +266,23 @@
 ;;; Public
 
 (defn handle-request
-  [request jruby-service config]
+  [request jruby-instance config]
   (sling/try+
-    (jruby/with-jruby-puppet jruby-instance jruby-service
-      (->> request
-           wrap-params-for-jruby
-           (as-jruby-request config)
-           clojure.walk/stringify-keys
-           make-request-mutable
-           (.handleRequest jruby-instance)
-           response->map))
+    ;(jruby/with-jruby-puppet jruby-instance jruby-service
+    ;  (->> request
+    ;       wrap-params-for-jruby
+    ;       (as-jruby-request config)
+    ;       clojure.walk/stringify-keys
+    ;       make-request-mutable
+    ;       (.handleRequest jruby-instance)
+    ;       response->map))
+    (->> request
+         wrap-params-for-jruby
+         (as-jruby-request config)
+         clojure.walk/stringify-keys
+         make-request-mutable
+         (.handleRequest jruby-instance)
+         response->map)
     (catch bad-request? e
       (output-error request e 400))
     (catch jruby-timeout? e

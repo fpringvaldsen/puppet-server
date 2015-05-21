@@ -51,7 +51,7 @@
 
   :pedantic? :abort
 
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "scratch/clj"]
   :java-source-paths ["src/java"]
   :test-paths ["test/unit" "test/integration"]
   :resource-paths ["resources" "src/ruby"]
@@ -106,7 +106,8 @@
 
   :aliases {"gem" ["trampoline" "run" "-m" "puppetlabs.puppetserver.cli.gem"]
             "ruby" ["trampoline" "run" "-m" "puppetlabs.puppetserver.cli.ruby"]
-            "irb" ["trampoline" "run" "-m" "puppetlabs.puppetserver.cli.irb"]}
+            "irb" ["trampoline" "run" "-m" "puppetlabs.puppetserver.cli.irb"]
+            "repro" ["run" "-m" "scratch.server556-repro"]}
 
   ; tests use a lot of PermGen (jruby instances)
   :jvm-opts ["-XX:MaxPermSize=256m" "-Xmx1024M"]
